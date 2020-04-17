@@ -1,0 +1,16 @@
+
+Follow the below steps
+
+import spark.implicits._
+val df = spark.read.json("F:\\PBPhase2\\tweetsdata.txt")
+
+//the below line will create table name as parquetFile
+df.createOrReplaceTempView("parquetFile")
+
+//the below line is for querying
+val namesDF=spark.sql("SELECT distinct place.country, count(*) as count FROM parquetFile where place.country is not null " + "GROUP BY place.country ORDER BY count DESC")
+
+
+
+//the below line is for displaying output
+namesDF.show()
